@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard - Hotel Management</title>
+  <link rel="stylesheet" href="admin-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="logo">HotelAdmin</h2>
+      <nav>
+        <ul>
+          <li class="active"><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#bookings">Bookings</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#rooms">Rooms</a></li>
+          <li><a href="#reports">Reports</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard Overview -->
+      <section id="dashboard">
+        <h1>Admin Dashboard</h1>
+        <div class="cards">
+          <div class="card" id="total-bookings"><h3>Total Bookings</h3><p>0</p></div>
+          <div class="card" id="total-users"><h3>Total Users</h3><p>0</p></div>
+          <div class="card" id="available-rooms"><h3>Available Rooms</h3><p>0</p></div>
+          <div class="card" id="pending-requests"><h3>Pending Requests</h3><p>0</p></div>
+        </div>
+      </section>
+
+      <!-- Booking Management -->
+      <section id="bookings">
+        <h2>Bookings</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Room-Type</th>
+              <th>check_in_date</th>
+              <th>check_out_date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dynamic booking data here -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- User Management -->
+      <section id="users">
+        <h2>Users</h2>
+        <table>
+          <tbody>
+            <tr><th>ID</th><th>Name</th><th>Email</th><th>Actions</th></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Room Management -->
+      <section id="rooms">
+        <h2>Rooms</h2>
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Type</th><th>Price</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>1</th><th>Standard</th><th>30$</th><th>Available</th></tr>>
+            <tr><th>2</th><th>Deluxe</th><th>60$</th><th>Available</th></tr>>
+            <tr><th>3</th><th>Luxury Suite</th><th>100$</th><th>Available</th></tr>>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Reports -->
+      <section id="reports">
+        <h2>Reports</h2>
+        <p>Earnings: <strong>$12,000</strong></p>
+        <p>Occupancy Rate: <strong>82%</strong></p>
+        <!-- Future chart placeholder -->
+      </section>
+    </main>
+  </div>
+
+<script>
+function approveBooking(bookingId) {
+  fetch('approve_booking.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ booking_id: bookingId })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('Booking approved!');
+      location.reload();
+    } else {
+      alert('Error approving booking.');
+    }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+function deleteBooking(bookingId) {
+  fetch('delete_booking.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ booking_id: bookingId })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('Booking deleted!');
+      location.reload();
+    } else {
+      alert('Error deleting booking.');
+    }
+  })
+  .catch(error => console.error('Delete Error:', error));
+}
+
+window.onload = function() {
+  // Fetch stats
+  fetch('stats.php')
+    .then(res => {
+      if (!res.ok) {
+        console.warn('stats.php not reachable, using fallback data.');
+        return Promise.resolve({
+          total_bookings: 0,
+          total_users: 0,
+          available_rooms: 0,
+          pending_requests: 0
+        });
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log('Stats Data:', data); // Log fetched statistics data for debugging
+      document.querySelector('#total-bookings p').textContent = data.total_bookings;
+      document.querySelector('#total-users p').textContent = data.total_users;
+      document.querySelector('#available-rooms p').textContent = data.available_rooms;
+      document.querySelector('#pending-requests p').textContent = data.pending_requests;
+    })
+    .catch(error => {
+      console.error('Fetching stats failed:', error);
+      const dashboardSection = document.querySelector('#dashboard');
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Failed to load stats. Please try again later.';
+      errorMessage.style.color = 'red';
+      dashboardSection.appendChild(errorMessage);
+    });
+
+  // Fetch bookings
+  fetch('booking_s.php')
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.querySelector('#bookings tbody');
+      tbody.innerHTML = '';
+      data.bookings.forEach(booking => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${booking.id}</td>
+          <td>${booking.name}</td>
+          <td>${booking.room_type}</td>
+          <td>${booking.check_in_date}</td>
+          <td>${booking.check_out_date}</td>
+          <td>${booking.status || 'Pending'}</td>
+          <td>
+            <button onclick="approveBooking(${booking.id})">Approve</button>
+            <button onclick="deleteBooking(${booking.id})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => console.error('Bookings Error:', error));
+
+  // Fetch users
+  fetch('users.php')
+    .then(res => res.text())
+    .then(html => {
+      document.querySelector('#users table tbody').innerHTML = html;
+    })
+    .catch(error => console.error('Users Error:', error));
+
+};
+
+</script>
+
+</body>
+</html>

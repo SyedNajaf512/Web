@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #fff;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+.nav-links li {
+    margin: 0 15px;
+}
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    position: relative;
+}
+.nav-links a::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: #ff7f50;
+    transition: width 0.3s;
+    width: 0;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.btn {
+    padding: 15px 35px;
+    background: #ff7f50;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    background: #ff5722;
+    transform: scale(1.05);
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 80px 50px;
+    background: #fff;
+    flex-wrap: wrap;
+}
+.feature-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    width: 300px;
+    padding: 30px;
+    text-align: center;
+    margin: 20px;
+    transition: transform 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+.feature-card i {
+    font-size: 40px;
+    color: #ff7f50;
+    margin-bottom: 20px;
+}
+.feature-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.feature-card p {
+    font-size: 16px;
+    color: #666;
+}
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin: 60px 0 30px;
+    font-family: 'Playfair Display', serif;
+    color: #333;
+}
+
+/* Room Gallery */
+.rooms {
+    padding: 0 50px 80px;
+    background: #fdfdfd;
+}
+.room-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.room-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+.room-card:hover {
+    transform: translateY(-5px);
+}
+.room-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.room-card h3 {
+    margin: 15px;
+    font-size: 22px;
+}
+.room-card p {
+    margin: 0 15px 20px;
+    font-size: 15px;
+    color: #666;
+}
+
+/* Booking Form */
+.booking {
+    padding: 50px;
+    height: autofill;
+    background: url('https://www.salamanderdc.com/images/hero/full/LivingRoomReimagined-1920x1200.jpg') no-repeat center center/cover;
+    color: white;
+}
+.booking-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.booking-form .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.booking-form textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+}
+.booking-form .btn {
+    background: #fff;
+    color: #060606;
+    font-weight: bold;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.booking-form .btn:hover {
+    background: #f1f1f1;
+}
+
+/* About Section */
+.about {
+    padding: 80px 50px;
+    background: #f7f7f7;
+}
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+}
+.about-content img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.about-text {
+    flex: 1;
+}
+.about-text h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+.about-text p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Contact Section */
+.contact {
+    padding: 80px 50px;
+    background: #e2d5d5;
+    text-align: center;
+}
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    background: #e2d5d5;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+.contact-form .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.contact-form input,
+.contact-form textarea {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+.contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+.contact-info p {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+
+/* Footer */
+footer {
+    background: #222;
+    color: white;
+    padding: 30px 50px;
+    text-align: center;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.footer-content p {
+    margin: 15px 0;
+}
+.footer-content .socials a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+.footer-content .socials a:hover {
+    color: #ff7f50;
+}
+
+</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HotelMania</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<script>
+    document.querySelector('.booking-form').addEventListener('submit', function(e) {
+        alert('Booking submitted! Our team will contact you shortly.');
+    });
+    
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+        alert('Message sent! We will reply soon.');
+    });
+    </script>
+    
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">HotelMania</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#rooms">Rooms</a></li>
+                <li><a href="#booking">Booking</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Luxury Redefined</h1>
+            <p>Experience unforgettable comfort and elegance</p>
+            <a href="#" class="btn">Book Now</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-hotel"></i>
+            <h3>Elegant Rooms</h3>
+            <p>Spacious, stylish, and full of modern amenities.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-concierge-bell"></i>
+            <h3>24/7 Concierge</h3>
+            <p>Our staff is always ready to assist you any time.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-utensils"></i>
+            <h3>Gourmet Dining</h3>
+            <p>Delicious meals prepared by world-class chefs.</p>
+        </div>
+    </section>
+    <!-- Add below the Features section and above Footer -->
+<section class="rooms" id="rooms">
+    <h2 class="section-title">Our Rooms</h2>
+    <div class="room-gallery">
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Deluxe Room">
+            <h3>Deluxe Room</h3>
+            <p>Spacious room with balcony, king-size bed, and sea view.</p>
+        </div>
+        <div class="room-card">
+            <img src="https://sthotelsmalta.com/wp-content/uploads/2022/06/modern-luxury-bedroom-suite-and-bathroom-with-working-table-scaled.jpg" alt="Suite">
+            <h3>Luxury Suite</h3>
+            <p>Includes private lounge, spa access, and personal butler.</p>
+        </div>
+        <div class="room-card">
+            <img src="https://img.freepik.com/free-photo/luxury-bedroom-interior-with-rich-furniture-scenic-view-from-walkout-deck_1258-111483.jpg?semt=ais_hybrid&w=740" alt="Standard Room">
+            <h3>Standard Room</h3>
+            <p>Perfect for solo travelers with all essentials included.</p>
+        </div>
+    </div>
+</section>
+
+<section class="booking" id="booking">
+    <h2 class="section-title">Book Your Stay</h2>
+    <form class="booking-form" action="bookings.php" method="post">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Your Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+            <input type="date" name="check_in_date" required>
+            <input type="date" name="check_out_date" required>
+        </div>
+        <div class="form-group">
+            <select name="room_type" required>
+                <option value="">Select Room Type</option>
+                <option value="standard">Standard Room</option>
+                <option value="deluxe">Deluxe Room</option>
+                <option value="suite">Luxury Suite</option>
+            </select>
+            <input type="number" name="guests" min="1" placeholder="No. of Guests" required>
+        </div>
+        <textarea name="message" placeholder="Additional Requests (optional)"></textarea>
+        <button type="submit" class="btn">Submit Booking</button>
+    </form>
+</section>
+<section class="about" id="about">
+    <h2 class="section-title">About Us</h2>
+    <div class="about-content">
+        <img src="https://cdn.prod.website-files.com/5c6d6c45eaa55f57c6367749/65d7ed44d1fd234978f801dc_lobbypix-022224-4.webp" alt="Hotel Lobby">
+        <div class="about-text">
+            <h3>Welcome to HotelMania</h3>
+            <p>At HotelMania, we blend modern comfort with timeless elegance to offer you an unforgettable stay. Located in the heart of the city, our hotel offers luxurious rooms, personalized services, and world-class amenities to cater to all your travel needs — whether you're on a romantic getaway, business trip, or family vacation.</p>
+            <p>Our mission is simple: comfort, class, and care.</p>
+        </div>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <form class="contact-form" action="contact_backend.php" method="post">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+        </div>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+    </form>
+    <div class="contact-info">
+        <p><strong>Phone:</strong> +123-456-7890</p>
+        <p><strong>Email:</strong> contact@hotelmania.com</p>
+        <p><strong>Address:</strong> 123 Luxury Lane, City Center, Dreamland</p>
+    </div>
+</section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 HotelMania. All rights reserved.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

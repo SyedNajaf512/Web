@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    /* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #353f21, #203a43, #2c5364);
+  color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #141414;
+  padding: 1rem 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar nav a {
+  color: #f0f0f0;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+  color: #03dac6;
+}
+
+/* Signup Section */
+.signup-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.signup-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #03dac6;
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signup-form input {
+  padding: 0.75rem;
+  background: #2a2a2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.signup-form input:focus {
+  background: #444;
+  border-color: #03dac6;
+}
+
+.signup-form button {
+  padding: 0.75rem 2rem;
+  background: #03dac6;
+  border: none;
+  color: #121212;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+  font-size: 1.1rem;
+}
+
+.signup-form button:hover {
+  transform: scale(1.05);
+  background-color: #00bfa5;
+}
+
+/* Footer Section (optional) */
+footer {
+  background: #141414;
+  padding: 1rem;
+  text-align: center;
+  color: #ccc;
+}
+
+</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Hotel Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar (optional for sign up page) -->
+  <header class="navbar">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <!-- Registration Form Section -->
+  <section class="signup-section">
+    <h2>Create an Account</h2>
+    <form class="signup-form" action="signup_backend.php" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </section>
+
+  <!-- Footer Section (optional) -->
+  <footer>
+    <p>&copy; 2025 Hotel Management System. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
